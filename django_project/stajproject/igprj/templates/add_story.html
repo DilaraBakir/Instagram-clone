@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://kit.fontawesome.com/fc1e235b2e.js"></script>
+    <link rel="stylesheet" href="{% static 'assets2/form_style.css' %}">
+    <title>Instagram Login Form</title>
+</head>
+
+<body>
+
+<style>
+    .my-stories-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+        font-size: 16px;
+    }
+
+    .my-stories-link:hover {
+        background-color: #2576a9;
+        color: #fff;
+    }
+
+    .form-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s, color 0.3s;
+        font-size: 16px;
+    }
+
+    .form-btn:hover {
+        background-color: #2576a9;
+    }
+</style>
+
+
+<div id="wrapper" style="background-color: var(--primary)">
+    <div class="container">
+        <div class="phone-sapp-demo"></div>
+        <div class="form-data">
+            <form action="" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="logo">
+                    <h3 style="padding: 20px; font-size: 20px;">Add Story</h3>
+                </div>
+                {{form.as_p}}<br>
+                <button class="form-btn" type="submit" style="margin-bottom: 10px">Add Story</button>
+                <a href="{% url 'my-stories' %}" class="my-stories-link">My Stories</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+
+{% endblock content %}

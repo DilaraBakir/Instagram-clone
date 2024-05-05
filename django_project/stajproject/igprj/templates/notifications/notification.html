@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<br><br>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <script src="https://kit.fontawesome.com/fc1e235b2e.js"></script> -->
+    <link rel="stylesheet" href="{% static 'assets2/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <title>Instagram Login Form</title>
+
+</head>
+
+<body>
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div id="wrapper">
+        <div class="container">
+            <div id="notification" class="logo">
+                <h3 style="padding-top: 5px; font-size: 20px;">Notifications</h3>
+            </div>
+
+            <div class="alert alert-white alert-dismissible fade show" role="alert" style="border: 1px rgba(219, 219, 219, 0.699) solid; border-radius: 25px;">
+                <div class="side-menu__user-profile">
+                    <a href="" class="side-menu__user-avatar">
+                        <img src="" alt="User Picture">
+                    </a>
+                    <div class="side-menu__user-idnfo" style="text-align: start;">
+                        <a href="" style="font-size: 15px; color: black; text-align: center;">{{sender.username}}</a>
+                        <br>
+
+                        <a href="" style="font-size: 15px; color: black; text-align: center;">
+                            <b><i class="bi bi-hand-thumbs-up-fill" style="color: blue;"></i> liked your post</b>
+                        </a>
+
+                        <br>
+                        <a href="" style="font-size: 10px; color: rgb(75, 75, 75); ">date</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+const notificationsDiv = document.getElementById('notifications');
+const socketPath = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+const socketURL = `${socketPath}${window.location.host}/ws/notifications/{{ request.user.id }}`;
+const socket = new WebSocket(socketURL);
+
+socket.onmessage = function(event) {
+  const data = JSON.parse(event.data);
+  if (data.type == ('notification') ){
+    const notificationData = data.notification;
+    const notificationType = notificationData.type;
+
+    if (notificationType === 'like') {
+      const likerUsername = notificationData.sender;
+      const postTitle = notificationData.post_title;
+
+      const notificationElement = document.createElement('div');
+      notificationElement.className = 'side-menu__user-container';
+      notificationElement.innerHTML = `
+        <a href="#" style="text-align: center;">
+          <img src="" alt="User Picture">
+        </a>
+        <div class="side-menu__user-info" style="text-align: start;">
+          <a href="" style="font-size: 15px; color: black; text-align: center;">${likerUsername}</a>
+          <br>
+          <a href="" style="font-size: 15px; color: black; text-align: center;">
+            <b><i class="bi bi-hand-thumbs-up-fill" style="color: blue;"></i> liked your post "${postTitle}"</b>
+          </a>
+          <br>
+          <a href="" style="font-size: 10px; color: rgb(75, 75, 75); ">${new Date().toLocaleString()}</a>
+        </div>
+      `;
+
+      notificationsDiv.appendChild(notificationElement);
+    }
+  }
+  // Add your other notification types handling if needed
+};
+</script>
+
+{% endblock content %}

@@ -1,0 +1,152 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zuck.js/1.0.0/zuck.min.js"
+            integrity="sha512-RiL8XLkxeSm8SOoUcbS9QZmNda/8YmK/4mQhbA8XooMst2SqLQ8rnb3bqVcHUKEB+xbLEIx3w+bnFJzEHf1FNA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/zuck.js/1.0.0/zuck.css"
+          integrity="sha512-onJaDh4K1q0SKcFrJUYLxa/ohMeyN9Kt7yP3U4Cxyuj/RRKtFbVe1jw6d4L2nRu6x58pgBRDa7C2fgtKE0sAAA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <style>
+        .text-center {
+            text-align: left !important;
+        }
+
+        .mt-5 {
+            margin-top: -5% !important;
+        }
+
+        .stories.carousel .story > a > .info {
+            color: #262626;
+            font-family: Roboto SansSerif;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container mt-5 pt-3 text-center">
+    <div class="mx-auto">
+        <div style="padding-top: 1px" class="col-100">
+            <div id="stories">
+              {% for story in stories %}
+                <div>
+                </div>
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .img {
+        border-radius: 50%;
+        border: rgb(221, 18, 52);
+    }
+
+    .container {
+        margin: -10px;
+    }
+
+</style>
+
+
+<script>
+
+    var new_stories = JSON.parse('{{stories|safe}}');
+    console.log(new_stories)
+
+    let stories = Zuck(document.querySelector("#stories"), {
+        skin: 'snapgram',
+        avatars: true,
+        list: false,
+        openEffect: false,
+        cubeEffect: false,
+        autoFullScreen: false,
+        backButton: true,
+        backNative: false,
+        previousTap: true,
+        localStorage: true,
+        reactive: true,
+        rtl: false,
+
+
+        callbacks: {
+            onOpen(storyId, callback) {
+                callback();
+            },
+
+            onView(storyId) {
+
+            },
+
+            onEnd(storyId, callback) {
+                callback();
+            },
+
+            onClose(storyId, callback) {
+                callback();
+            },
+
+            onNavigateItem(storyId, nextStoryId, callback) {
+                callback();
+            },
+
+            onDataUpdate(currentState, callback) {
+                callback();
+            },
+        },
+
+        template: {
+            timelineItem(itemData) {
+                return '';
+            },
+
+            timelineStoryItem(itemData) {
+                return '';
+            },
+
+            viewerItem(storyData, currentStoryItem) {
+                return '';
+            },
+
+            viewerItemPointer(index, currentIndex, item) {
+                return '';
+            },
+
+            viewerItemBody(index, currentIndex, item) {
+                return '';
+            },
+        },
+
+        language: {
+            unmute: 'Touch to unmute',
+            keyboardTip: 'Press space to see next',
+            visitLink: 'Visit link',
+            time: {
+                ago: 'ago',
+                hour: 'hour',
+                hours: 'hours',
+                minute: 'minute',
+                minutes: 'minutes',
+                fromnow: ' from now',
+                seconds: 'seconds',
+                yesterday: 'yesterday',
+                tomorrow: 'tomorrow',
+                days: 'days',
+            }
+        }
+    });
+
+
+    for (const story of new_stories) {
+        stories.add(story);
+    }
+</script>
+
+</body>
+</html>

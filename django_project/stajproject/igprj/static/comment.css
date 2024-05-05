@@ -1,0 +1,51 @@
+/* styles.css */
+.comment-box {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.comment-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 5px;
+  font-size: 14px;
+  background-color: transparent;
+}
+
+.comment-box button {
+  margin-left: 10px;
+}
+
+/* styles.css */
+.comment-container {
+    position: relative;
+}
+
+.comment-delete-form {
+    position: absolute;
+    top: 40px
+;
+    right: 0;
+    margin: 5px; /* Add some margin for spacing */
+    display: flex;
+    text-align:center;
+
+}
+
+.comment-text {
+    margin-right: 40px; /* Add some right margin to make space for the button */
+}
+
+/* styles.css */
+.btn-sm-delete {
+    padding: 0.05rem 0.05rem; /* Adjust padding to control the button size */
+    width: 109px;
+    height: 30px;
+    text-align:center;
+}
+
